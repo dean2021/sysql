@@ -75,7 +75,11 @@ SELECT file_exists('/etc/passwd');
 ```
 More: https://github.com/teoseller/osquery-attck
 
-# Thanks
+## TODO
+1. psutil for sysql
+2. Add more table to sysql
+
+## Thanks
 
 Thanks for Facebook's osquery idea
 

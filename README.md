@@ -76,8 +76,11 @@ SELECT file_exists('/etc/passwd');
 More: https://github.com/teoseller/osquery-attck
 
 ## TODO
-1. psutil for sysql
-2. Add more table to sysql
+1. Add NPM table
+2. Add Pip table
+3. Add Jar table
+4. Add more function to sysql
+
 
 ## Thanks
 

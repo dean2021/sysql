@@ -1,4 +1,4 @@
-//go:build linux
+//go:build linux || darwin
 
 package tables
 
@@ -25,6 +25,7 @@ func (p *LoadAverageTable) Columns() table.TableColumns {
 	return table.TableColumns{
 		{Name: "period", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "average", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
+		{Name: "cores", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
 	}
 }
 

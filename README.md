@@ -74,6 +74,8 @@ SELECT p.* FROM processes AS p LEFT OUTER JOIN netstat_diag AS n ON p.pid = n.pi
 SELECT file_exists('/etc/passwd');
 -- Ping any host
 SELECT * FROM ping WHERE addr='www.google.com'
+-- Returns the Listening port List - ATT&CK T1043,T1090,T1094,T1205,T1219,T1105,T1065,T1102
+select p.name, p.path, lp.local_port, lp.local_address, lp.protocol  from netstat lp LEFT JOIN processes p ON lp.pid = p.pid WHERE lp.local_port != 0 AND p.name != '';
 ```
 More: https://github.com/teoseller/osquery-attck
 

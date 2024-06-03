@@ -2,6 +2,7 @@ package system
 
 import (
 	"github.com/dean2021/sysql/table"
+	"github.com/yusufpapurcu/wmi"
 )
 
 type Win32QuickFix struct {

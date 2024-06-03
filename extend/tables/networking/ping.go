@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/dean2021/sysql/table"
 	probing "github.com/prometheus-community/pro-bing"
+	"log"
 )
 
 func GenPing(context *table.QueryContext) (table.TableRows, error) {
@@ -28,8 +29,10 @@ func GenPing(context *table.QueryContext) (table.TableRows, error) {
 	for _, addr := range address {
 		ping, err := probing.NewPinger(addr.(string))
 		if err != nil {
+			log.Println(err)
 			continue
 		}
+		ping.SetPrivileged(true)
 		ping.Count = count
 		ping.OnRecv = func(pkt *probing.Packet) {
 			results = append(results, table.TableRow{
@@ -43,6 +46,7 @@ func GenPing(context *table.QueryContext) (table.TableRows, error) {
 		}
 		err = ping.Run()
 		if err != nil {
+			log.Println(err)
 			continue
 		}
 	}

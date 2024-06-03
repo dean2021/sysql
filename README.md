@@ -72,6 +72,8 @@ SELECT pid, username, name, terminal FROM processes WHERE terminal != '';
 SELECT p.* FROM processes AS p LEFT OUTER JOIN netstat_diag AS n ON p.pid = n.pid WHERE p.name IN ('sh', 'bash', 'nc') AND n.status = 'ESTABLISHED';
 -- Determine if a certain file exists
 SELECT file_exists('/etc/passwd');
+-- Ping any host
+SELECT * FROM ping WHERE addr='www.google.com'
 ```
 More: https://github.com/teoseller/osquery-attck
 

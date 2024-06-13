@@ -10,6 +10,7 @@ import (
 	"io"
 	"math"
 	"os"
+	"path/filepath"
 )
 
 func Md5File(path string) string {
@@ -25,15 +26,21 @@ func Sha256File(path string) string {
 }
 
 func hashFile(path string, hash hash.Hash) string {
-	const fileChunk = 8192 // we settle for 8KB
-	file, err := os.Open(path)
+	path, err := filepath.EvalSymlinks(path)
 	if err != nil {
 		return ""
 	}
-	defer file.Close()
-	// calculate the file size
-	info, err := file.Stat()
+	const fileChunk = 1024 * 32
+	f, err := os.Open(path)
 	if err != nil {
+		return ""
+	}
+	defer f.Close()
+	info, err := f.Stat()
+	if err != nil {
+		return ""
+	}
+	if info.IsDir() {
 		return ""
 	}
 	fileSize := info.Size()
@@ -41,11 +48,11 @@ func hashFile(path string, hash hash.Hash) string {
 	for i := uint64(0); i < blocks; i++ {
 		blockSize := int(math.Min(fileChunk, float64(fileSize-int64(i*fileChunk))))
 		buf := make([]byte, blockSize)
-		_, err = file.Read(buf)
+		_, err = f.Read(buf)
 		if err != nil {
 			return ""
 		}
-		_, err = io.WriteString(hash, string(buf)) // append into the hash
+		_, err = io.WriteString(hash, string(buf))
 		if err != nil {
 			return ""
 		}

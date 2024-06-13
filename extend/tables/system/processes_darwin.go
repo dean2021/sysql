@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 )
 
 // 第一列数字(RUID):实际用户ID,指的是进程执行者是谁.
@@ -67,6 +68,12 @@ func genProcess(pid int32) table.TableRow {
 		}
 	}
 
+	var state string
+	status, err := p.Status()
+	if err == nil {
+		state = strings.Join(status, ",")
+	}
+
 	cwd, _ := p.Cwd()
 	ppid, _ := p.Ppid()
 	cmdline, _ := p.Cmdline()
@@ -86,7 +93,7 @@ func genProcess(pid int32) table.TableRow {
 		"name":    name,
 		"path":    path,
 		"cmdline": cmdline,
-		//"state":   status[0],
+		"state":   state,
 		"cwd":     cwd,
 		"root":    root,
 		"uid":     uid,

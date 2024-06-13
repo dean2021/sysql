@@ -47,7 +47,7 @@ go build -tags=sqlite_vtable
 ```sql
 -- Query all supported tables
 
-SELECT table_name FROM information_schema.tables GROUP BY table_name;
+select table_name from schema group by table_name
 -- Query what fields a certain table has
 
 PRAGMA table_info('time');

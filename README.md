@@ -82,9 +82,10 @@ More: https://github.com/teoseller/osquery-attck
 ## Tables
 
 ### Windows tables
-+-----------------+
+
+
 |   TABLE NAME    |
-+-----------------+
+|-----------------|
 | cpu_info        |
 | curl            |
 | etc_hosts       |
@@ -105,11 +106,12 @@ More: https://github.com/teoseller/osquery-attck
 | users           |
 | windows_product |
 | windows_update  |
-+-----------------+
+
 ### Linux tables
-+---------------+
+
+
 |  TABLE NAME   |
-+---------------+
+|---------------|
 | cpu_info      |
 | crontab       |
 | curl          |
@@ -133,7 +135,7 @@ More: https://github.com/teoseller/osquery-attck
 | shell_history |
 | time          |
 | users         |
-+---------------+
+
 
 
 ## TODO

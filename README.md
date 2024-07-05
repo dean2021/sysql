@@ -53,7 +53,7 @@ select table_name from schema group by table_name
 PRAGMA table_info('time');
 -- Query what built-in functions there are
 
-SELECT * FROM sqlite_master WHERE type='function';
+SELECT * FROM functions;
 -- Check if a certain process is running with root privileges, which poses a security risk
 
 SELECT * FROM processes WHERE name LIKE '%mysql%' AND uid = 0;
@@ -78,6 +78,63 @@ SELECT * FROM ping WHERE addr='www.google.com'
 select p.name, p.path, lp.local_port, lp.local_address, lp.protocol  from netstat lp LEFT JOIN processes p ON lp.pid = p.pid WHERE lp.local_port != 0 AND p.name != '';
 ```
 More: https://github.com/teoseller/osquery-attck
+
+## Tables
+
+### Windows tables
++-----------------+
+|   TABLE NAME    |
++-----------------+
+| cpu_info        |
+| curl            |
+| etc_hosts       |
+| functions       |
+| hash            |
+| interfaces      |
+| last            |
+| list            |
+| memory_info     |
+| netstat         |
+| os_version      |
+| patches         |
+| ping            |
+| processes       |
+| schema          |
+| services        |
+| time            |
+| users           |
+| windows_product |
+| windows_update  |
++-----------------+
+### Linux tables
++---------------+
+|  TABLE NAME   |
++---------------+
+| cpu_info      |
+| crontab       |
+| curl          |
+| deb_packages  |
+| etc_hosts     |
+| file          |
+| functions     |
+| hash          |
+| interfaces    |
+| last          |
+| list          |
+| load_average  |
+| memory_info   |
+| netstat       |
+| netstat_diag  |
+| os_version    |
+| ping          |
+| processes     |
+| rpm_packages  |
+| schema        |
+| shell_history |
+| time          |
+| users         |
++---------------+
+
 
 ## TODO
 1. Add NPM table

@@ -1,11 +1,14 @@
+//go:build linux || darwin
+
 package system
 
 import (
 	"bufio"
-	"github.com/dean2021/sysql/extend/tables/common"
-	"github.com/dean2021/sysql/table"
 	"os"
 	"strings"
+
+	"github.com/dean2021/sysql/extend/tables/common"
+	"github.com/dean2021/sysql/table"
 )
 
 func GenUsers(context *table.QueryContext) (table.TableRows, error) {

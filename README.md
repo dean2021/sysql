@@ -41,7 +41,12 @@ func main() {
 
 ## Build
 
-go build -tags=sqlite_vtable
+* darwin
+> go build -tags=sqlite_vtable
+* linux
+> CGO_ENABLED=1 GOOS=linux CC="x86_64-linux-musl-gcc" GOARCH=amd64 go build -tags=sqlite_vtable -ldflags "-s -w --extldflags "-static""
+* windows
+> CGO_ENABLED=1 GOOS=windows CC="x86_64-w64-mingw32-gcc" GOARCH=amd64 go build -tags=sqlite_vtable
 
 ## Playground
 ```sql

@@ -87,7 +87,7 @@ func getShadows() ([]Shadow, error) {
 				s.PasswordStatus = "active"
 			}
 			s.Hash = passwdHash
-			shadows = append(shadows, Shadow{})
+			shadows = append(shadows, s)
 		}
 	}
 	return shadows, nil

@@ -23,6 +23,7 @@ func (p *ShadowTable) Name() string {
 
 func (p *ShadowTable) Columns() table.TableColumns {
 	return table.TableColumns{
+		{Name: "username", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "password_status", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "hash", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "last_change", Type: table.BIGINT_TYPE, Options: table.DEFAULT},

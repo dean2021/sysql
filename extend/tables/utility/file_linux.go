@@ -1,10 +1,13 @@
 package utility
 
 import (
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
+
 	"github.com/dean2021/sysql/table"
 	"golang.org/x/sys/unix"
-	"os"
-	"path/filepath"
 )
 
 func genFile(path string) table.TableRow {
@@ -30,6 +33,9 @@ func genFile(path string) table.TableRow {
 	}
 
 	directory, _ := filepath.Abs(path)
+
+	chattr := checkChattr(path)
+
 	return table.TableRow{
 		"path":       path,
 		"directory":  filepath.Dir(directory),
@@ -47,8 +53,19 @@ func genFile(path string) table.TableRow {
 		"btime":      0,
 		"hard_links": stat.Nlink,
 		"symlink":    symlink,
-
+		"chattr":     chattr,
 		// TODO
 		"type": "0",
 	}
+}
+
+// CheckChattr 检查文件是否被chattr上锁
+func checkChattr(filePath string) string {
+	// 构造命令
+	cmd := exec.Command("lsattr", filePath)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return ""
+	}
+	return strings.TrimSpace(string(output))
 }

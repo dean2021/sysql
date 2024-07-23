@@ -1,10 +1,11 @@
 package utility
 
 import (
-	"github.com/dean2021/sysql/table"
-	"golang.org/x/sys/unix"
 	"os"
 	"path/filepath"
+
+	"github.com/dean2021/sysql/table"
+	"golang.org/x/sys/unix"
 )
 
 func genFile(path string) table.TableRow {
@@ -48,7 +49,7 @@ func genFile(path string) table.TableRow {
 		"btime":      btime,
 		"hard_links": stat.Nlink,
 		"symlink":    symlink,
-
+		"chattr":     "",
 		// TODO
 		"type": "0",
 	}

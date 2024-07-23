@@ -40,6 +40,7 @@ func (p *FileTable) Columns() table.TableColumns {
 		{Name: "hard_links", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
 		{Name: "symlink", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
 		{Name: "type", Type: table.TEXT_TYPE, Options: table.DEFAULT},
+		{Name: "chattr", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		//{Name: "attributes", Type: table.TEXT_TYPE, Options: table.HIDDEN},
 		//{Name: "volume_serial", Type: table.TEXT_TYPE, Options: table.HIDDEN},
 		//{Name: "file_id", Type: table.TEXT_TYPE, Options: table.HIDDEN},

@@ -13,6 +13,7 @@ require (
 	github.com/urfave/cli v1.22.15
 	github.com/yusufpapurcu/wmi v1.2.4
 	golang.org/x/sys v0.19.0
+	golang.org/x/text v0.14.0
 )
 
 require (

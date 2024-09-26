@@ -30,6 +30,7 @@ func (p *LocalUserTable) Columns() table.TableColumns {
 		{Name: "principalSource", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
 		{Name: "accountExpires", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "passwordChangeableDate", Type: table.TEXT_TYPE, Options: table.DEFAULT},
+		{Name: "passwordLastSet", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "passwordExpires", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 		{Name: "userMayChangePassword", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
 		{Name: "lastLogon", Type: table.INTEGER_TYPE, Options: table.DEFAULT},

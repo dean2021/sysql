@@ -40,6 +40,7 @@ func (p *UsersTable) Columns() table.TableColumns {
 		{Name: "passwordRequired", Type: table.INTEGER_TYPE, Options: table.DEFAULT},   // Assuming boolean is represented as integer
 		{Name: "sidType", Type: table.INTEGER_TYPE, Options: table.DEFAULT},
 		{Name: "status", Type: table.TEXT_TYPE, Options: table.DEFAULT},
+		{Name: "passwordLastSet", Type: table.TEXT_TYPE, Options: table.DEFAULT},
 	}
 }
 

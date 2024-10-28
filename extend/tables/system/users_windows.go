@@ -4,6 +4,12 @@
 package system
 
 import (
+	"bytes"
+	"fmt"
+	"os/exec"
+	"strings"
+
+	"github.com/dean2021/sysql/misc/windows"
 	"github.com/dean2021/sysql/table"
 	"github.com/yusufpapurcu/wmi"
 )
@@ -27,14 +33,38 @@ type Win32UserAccount struct {
 	Status             string `json:"status"`
 }
 
-func getWin32UserAccount() ([]Win32UserAccount, error) {
-	var s []Win32UserAccount
-	err := wmi.Query("SELECT * FROM Win32_UserAccount WHERE LocalAccount=True", &s)
+type NewWin32UserAccount struct {
+	Win32UserAccount `json:",inline"`
+	PasswordLastSet  string `json:"passwordLastSet"`
+}
+
+func getWin32UserAccount() ([]NewWin32UserAccount, error) {
+	var accounts []Win32UserAccount
+	err := wmi.Query("SELECT * FROM Win32_UserAccount WHERE LocalAccount=True", &accounts)
 	if err != nil {
 		return nil, err
 	}
-	return s, nil
+	var results []NewWin32UserAccount
+	for _, account := range accounts {
+		results = append(results, NewWin32UserAccount{Win32UserAccount: account, PasswordLastSet: passwordLastSet(account.Name)})
+	}
+	return results, nil
 }
+
+func passwordLastSet(name string) string {
+	c := exec.Command("cmd", "/C", fmt.Sprintf("net user %s | findstr 上次设置密码", name))
+	data, err := c.CombinedOutput()
+	if err != nil {
+		return ""
+	}
+	data, err = windows.DecodeUTF16(data)
+	if err != nil {
+		return ""
+	}
+	data = bytes.TrimPrefix(data, []byte("上次设置密码"))
+	return strings.TrimSpace(string(data))
+}
+
 func GenUsers(context *table.QueryContext) (table.TableRows, error) {
 	var results table.TableRows
 	accounts, err := getWin32UserAccount()
@@ -59,6 +89,7 @@ func GenUsers(context *table.QueryContext) (table.TableRows, error) {
 			"sid":                a.SID,
 			"sidType":            a.SIDType,
 			"status":             a.Status,
+			"passwordLastSet":    a.PasswordLastSet,
 		})
 	}
 	return results, nil
